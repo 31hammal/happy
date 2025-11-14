@@ -1,288 +1,54 @@
-<<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ThermoBuddy</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background: linear-gradient(#e9f0ff, #ffffff);
-      text-align: center;
-      color: #2a2a2a;
-    }
+<!-- TEST BUTTON -->
+<button id="testThankYou" style="padding:12px 18px;border-radius:10px;background:#7a9eff;color:white;border:none;cursor:pointer;font-size:1rem;">TEST THANK YOU MODAL</button>
 
-    header {
-      padding: 40px 20px;
-    }
+<!-- THANK YOU MODAL -->
+<div id="thankYouModal" style="
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(4px);
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+">
+  <div style="
+    background:white;
+    padding:22px;
+    width:min(420px,90%);
+    border-radius:18px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.25);
+    text-align:center;
+  ">
+    <h2 style="margin-top:0;font-size:1.8rem;color:#4a5cff;">Thank You! 💜</h2>
+    <p style="font-size:1rem;color:#444;line-height:1.5;">
+      Your ThermoBuddy is on the way!  
+      You're officially part of the coolest thermochromic club ever. ❄️🔥
+    </p>
 
-    .logo {
-      width: 420px;
-      max-width: 90%;
-    }
-
-    h1 {
-      font-size: 48px;
-      font-weight: 800;
-      margin-top: 20px;
-    }
-
-    p.subtitle {
-      font-size: 22px;
-      max-width: 700px;
-      margin: 10px auto 40px;
-      line-height: 1.5;
-    }
-
-    .elephant {
-      width: 360px;
-      margin-top: 40px;
-    }
-
-    .btn {
-      background: #4a74ff;
-      color: white;
-      padding: 18px 34px;
-      border-radius: 16px;
-      border: none;
-      font-size: 22px;
-      cursor: pointer;
-      margin: 12px;
-      transition: 0.2s;
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-    }
-
-    /* Overlay */
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(6px);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .modal-box {
-      background: white;
-      width: 92%;
-      max-width: 480px;
-      padding: 35px;
-      border-radius: 22px;
-      box-shadow: 0 0 35px rgba(0, 0, 0, 0.25);
-      text-align: left;
-      animation: pop 0.25s ease;
-    }
-
-    @keyframes pop {
-      from { transform: scale(0.85); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    input, select {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #ccc;
-      border-radius: 12px;
-      margin-top: 8px;
-      margin-bottom: 20px;
-      font-size: 18px;
-    }
-
-    .close-btn {
-      background: #ff5c5c;
-      margin-top: 10px;
-    }
-
-    /* Speech bubble */
-    #speechModal {
-      display: none;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      padding: 25px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.2);
-      width: 340px;
-      font-size: 20px;
-      z-index: 1000;
-      animation: pop 0.25s ease;
-    }
-
-    #speechModal::after {
-      content: '';
-      position: absolute;
-      bottom: -22px;
-      left: 150px;
-      border-width: 22px;
-      border-style: solid;
-      border-color: white transparent transparent transparent;
-    }
-
-    /* Temperature slider */
-    #tempContainer {
-      margin-top: 40px;
-    }
-
-    #tempValue {
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    input[type=range] {
-      width: 60%;
-      margin-top: 15px;
-    }
-  </style>
-</head>
-
-<body>
-  <header>
-    <img src="ChatGPT Image Nov 13, 2025, 03_08_05 PM.png" class="logo" alt="ThermoBuddy Logo">
-    <h1>Meet ThermoBuddy!</h1>
-    <p class="subtitle">Your smart, color‑changing temperature buddy. He reacts to heat and cold, glows in different moods, and brings your desk to life.</p>
-
-    <button class="btn" onclick="openSpeech()">Say Hi</button>
-    <button class="btn" onclick="openStyle()">Choose Style</button>
-    <button class="btn" onclick="openOrder()">Buy Now</button>
-  </header>
-
-  <img src="ThermoBuddy Elephant Logo Design.png" class="elephant" id="elephantImg" alt="Elephant Character">
-
-  <!-- Temperature Color Simulator -->
-  <div id="tempContainer">
-    <h2>Temperature Simulator</h2>
-    <input type="range" id="tempSlider" min="0" max="40" value="20" oninput="updateTemp()">
-    <div id="tempValue">20°C / 68°F</div>
-  </div>
-
-  <!-- Speech bubble -->
-  <div id="speechModal">
-    Hi!! I'm ThermoBuddy! I change colors based on temperature! 🌡️
-    <br><br>
-    <button class="btn close-btn" onclick="closeSpeech()">Close</button>
-  </div>
-
-  <!-- Order Modal -->
-  <div id="orderOverlay" class="overlay">
-    <div class="modal-box">
-      <h2 style="text-align:center;">Order ThermoBuddy</h2>
-
-      <label>Name</label>
-      <input type="text" placeholder="Your Name">
-
-      <label>Email</label>
-      <input type="email" placeholder="email@example.com">
-
-      <label>Address</label>
-      <input type="text" placeholder="123 Street, City, Country">
-
-      <label>Quantity</label>
-      <input type="number" min="1" value="1">
-
-      <label>Choose Style</label>
-      <select>
-        <option>Classic Blue</option>
-        <option>Purple Fade</option>
-        <option>Snow White</option>
-        <option>Galaxy Gradient</option>
-      </select>
-
-      <button class=\"btn\" onclick=\"submitOrder()\">Submit Order<\/button>
-      <button class="btn close-btn" onclick="closeOrder()">Close</button>
+    <div style="margin-top:18px;padding:12px;background:#f4f6ff;border-radius:12px;text-align:left;">
+      <strong>Fun Fact:</strong> Thermochromic pigments shift structure when heated —  
+      that’s why they turn white above 25°C!
     </div>
+
+    <button id="closeTY" style="
+      margin-top:22px;
+      padding:10px 16px;
+      border:none;
+      border-radius:10px;
+      background:#7a9eff;
+      color:white;
+      font-size:1rem;
+      cursor:pointer;
+    ">Close</button>
   </div>
+</div>
 
-  <!-- Style Modal -->
-  <div id="styleOverlay" class="overlay">
-    <div class="modal-box">
-      <h2 style="text-align:center;">Choose Your Style</h2>
-
-      <select id="styleSelect" onchange="previewStyle()">
-        <option value="blue">Classic Blue</option>
-        <option value="purple">Purple Fade</option>
-        <option value="white">Snow White</option>
-        <option value="galaxy">Galaxy Gradient</option>
-      </select>
-
-      <p style="font-size:18px; text-align:center;">Your ThermoBuddy will match this theme!</p>
-
-      <button class="btn close-btn" onclick="closeStyle()">Close</button>
-    </div>
-  </div>
-
-  <script>
-    function openSpeech() { document.getElementById('speechModal').style.display = 'block'; }
-    function closeSpeech() { document.getElementById('speechModal').style.display = 'none'; }
-
-    function openOrder() { document.getElementById('orderOverlay').style.display = 'flex'; }
-    function closeOrder() { document.getElementById('orderOverlay').style.display = 'none'; }
-
-    function openStyle() { document.getElementById('styleOverlay').style.display = 'flex'; }
-    function closeStyle() { document.getElementById('styleOverlay').style.display = 'none'; }
-
-    // Temperature slider color change
-    function updateTemp() {
-      let c = document.getElementById('tempSlider').value;
-      let f = Math.round(c * 9/5 + 32);
-      document.getElementById('tempValue').textContent = `${c}°C / ${f}°F`;
-
-      let img = document.getElementById('elephantImg');
-
-      if (c < 10) img.style.filter = 'hue-rotate(200deg) brightness(1.2)';
-      else if (c < 20) img.style.filter = 'hue-rotate(100deg)';
-      else if (c < 30) img.style.filter = 'hue-rotate(0deg)';
-      else img.style.filter = 'hue-rotate(-60deg) brightness(1.1)';
-    }
-
-    function previewStyle() {
-      const style = document.getElementById('styleSelect').value;
-      const img = document.getElementById('elephantImg');
-
-      if (style === 'blue') img.style.filter = 'hue-rotate(180deg)';
-      if (style === 'purple') img.style.filter = 'hue-rotate(260deg)';
-      if (style === 'white') img.style.filter = 'brightness(1.8) saturate(0.2)';
-      if (style === 'galaxy') img.style.filter = 'hue-rotate(300deg) saturate(2)';
-    }
-  </script>
-  <!-- Thank You Screen -->
-  <div id="thankYou" class="overlay" style="display:none;">
-    <div class="modal-box" style="text-align:center;">
-      <h2>Thank You for Your Purchase! 🎉</h2>
-      <p>Your ThermoBuddy is on its way to you.</p>
-      <h3>Fun Facts About ThermoBuddy:</h3>
-      <ul style="text-align:left; font-size:18px;">
-        <li>ThermoBuddy can shift through more than 15 temperature-based colors!</li>
-        <li>His ears are the first part to react to temperature changes.</li>
-        <li>At very cold temps, he glows blue like a snowflake ❄️.</li>
-        <li>At warm temps, he shifts to sunset orange 🌅.</li>
-        <li>He was designed to help kids learn about temperature in a fun way!</li>
-      </ul>
-      <button class="btn close-btn" onclick="closeThankYou()">Close</button>
-    </div>
-  </div>
-
-  <script>
-    function submitOrder() {
-      document.getElementById('orderOverlay').style.display = 'none';
-      document.getElementById('thankYou').style.display = 'flex';
-    }
-
-    function closeThankYou() {
-      document.getElementById('thankYou').style.display = 'none';
-    }
-  </script>
-</body>
-</html>
+<script>
+  document.getElementById("testThankYou").onclick = function(){
+    document.getElementById("thankYouModal").style.display = "flex";
+  }
+  document.getElementById("closeTY").onclick = function(){
+    document.getElementById("thankYouModal").style.display = "none";
+  }
+</script>
