@@ -73,7 +73,7 @@
     border-radius:12px;
     border:2px solid #eee;
   }
-  .cool{background:linear-gradient(135deg,#8a9cff,#c8d0ff);}
+  .cool{background:linear-gradient(135deg,#8a9cff,#c8d0ff);} 
   .warm{background:white;}
 
   .buy-panel select, input{
@@ -95,9 +95,8 @@
     cursor:pointer;
     margin-top:10px;
   }
-  .buy-now:hover{background:var(--accent-2);}
+  .buy-now:hover{background:var(--accent-2);} 
 
-  /* Checkout backdrop */
   .modal-backdrop{
     position:fixed;
     inset:0;
@@ -125,7 +124,6 @@
     border-radius:12px;
   }
 
-  /* THANK YOU MODAL */
   #thankYouModal{
     display:none;
     position:fixed;
@@ -159,7 +157,6 @@
 
 <main class="container">
 
-  <!-- HERO -->
   <div class="hero">
     <div class="card">
       <h2>What is ThermoBuddy?</h2>
@@ -169,7 +166,6 @@
         and <strong>white</strong> above it!
       </p>
 
-      <!-- Images -->
       <img src="ThermoBuddy Elephant Logo Design.png"
            alt="ThermoBuddy Elephant"
            style="width:100%;border-radius:16px;margin-top:10px;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
@@ -191,7 +187,6 @@
       </p>
     </div>
 
-    <!-- BUY PANEL -->
     <aside class="card buy-panel">
       <h2 style="margin-top:0">Buy ThermoBuddy</h2>
       <label>Choose Style</label>
@@ -208,7 +203,6 @@
     </aside>
   </div>
 
-  <!-- STEAM SECTION -->
   <div class="card" style="margin-top:1.5rem;">
     <h2>STEAM Learning</h2>
     <p class="lead">Explore science, engineering, art, and heat-activated pigments!</p>
@@ -229,7 +223,6 @@
 
 </main>
 
-<!-- CHECKOUT MODAL -->
 <div id="modalBackdrop" class="modal-backdrop">
   <div class="modal">
     <h2>Checkout</h2>
@@ -263,70 +256,4 @@
       </div>
     </div>
 
-    <button id="confirmBtn" class="buy-now" style="margin-top:16px;">Submit Order</button>
-  </div>
-</div>
-
-<!-- THANK YOU MODAL -->
-<div id="thankYouModal">
-  <div id="thankYouBox">
-    <h2 style="color:#4a5cff;font-size:2rem;">Thank You! 💜</h2>
-
-    <p id="tyMessage" style="font-size:1.1rem;line-height:1.5;margin-top:10px;">
-      Your order has been received!
-    </p>
-
-    <div style="margin-top:18px;padding:12px;background:#f4f6ff;border-radius:12px;text-align:left;">
-      <strong>Fun Fact:</strong> ThermoBuddy uses thermochromic pigments that
-      change structure above 25°C!
-    </div>
-
-    <button id="closeTY" class="buy-now" style="margin-top:20px;width:auto;padding:10px 20px;">Close</button>
-  </div>
-</div>
-
-<footer>
-  <small>© 2025 ThermoBuddy – Created by Students 💖</small>
-</footer>
-
-<!-- SCRIPT -->
-<script>
-  const buyBtn = document.getElementById('buyNow');
-  const backdrop = document.getElementById('modalBackdrop');
-  const confirmBtn = document.getElementById('confirmBtn');
-
-  function openModal(){
-    backdrop.style.display="flex";
-    document.body.style.overflow="hidden";
-  }
-  function closeModal(){
-    backdrop.style.display="none";
-    document.body.style.overflow="";
-  }
-
-  buyBtn.addEventListener("click", openModal);
-
-  const thankYouModal = document.getElementById("thankYouModal");
-  const closeTY = document.getElementById("closeTY");
-
-  closeTY.onclick = function(){
-    thankYouModal.style.display="none";
-  };
-
-  confirmBtn.addEventListener("click", ()=>{
-    const qty = document.getElementById("qty").value;
-    const style = document.getElementById("styleSelect").value;
-    const first = document.getElementById("firstName").value || "Friend";
-
-    closeModal();
-
-    setTimeout(()=>{
-      thankYouModal.style.display="flex";
-      document.getElementById("tyMessage").innerText =
-        `${first}, your order of ${qty} × ThermoBuddy (${style}) has been received!`;
-    },150);
-  });
-</script>
-
-</body>
-</html>
+    <button id="confirmBtn" class="buy-now" style="margin-top:16px;">Submit Order
