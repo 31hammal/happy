@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -152,7 +152,7 @@
   <header>
     <img src="ChatGPT Image Nov 13, 2025, 03_08_05 PM.png" class="logo" alt="ThermoBuddy Logo">
     <h1>Meet ThermoBuddy!</h1>
-    <p class="subtitle">Your smart, color-changing temperature buddy. He reacts to heat and cold, glows in different moods, and brings your desk to life.</p>
+    <p class="subtitle">Your smart, color‑changing temperature buddy. He reacts to heat and cold, glows in different moods, and brings your desk to life.</p>
 
     <button class="btn" onclick="openSpeech()">Say Hi</button>
     <button class="btn" onclick="openStyle()">Choose Style</button>
@@ -200,7 +200,7 @@
         <option>Galaxy Gradient</option>
       </select>
 
-      <button class="btn">Submit Order</button>
+      <button class=\"btn\" onclick=\"submitOrder()\">Submit Order<\/button>
       <button class="btn close-btn" onclick="closeOrder()">Close</button>
     </div>
   </div>
@@ -255,6 +255,33 @@
       if (style === 'purple') img.style.filter = 'hue-rotate(260deg)';
       if (style === 'white') img.style.filter = 'brightness(1.8) saturate(0.2)';
       if (style === 'galaxy') img.style.filter = 'hue-rotate(300deg) saturate(2)';
+    }
+  </script>
+  <!-- Thank You Screen -->
+  <div id="thankYou" class="overlay" style="display:none;">
+    <div class="modal-box" style="text-align:center;">
+      <h2>Thank You for Your Purchase! 🎉</h2>
+      <p>Your ThermoBuddy is on its way to you.</p>
+      <h3>Fun Facts About ThermoBuddy:</h3>
+      <ul style="text-align:left; font-size:18px;">
+        <li>ThermoBuddy can shift through more than 15 temperature-based colors!</li>
+        <li>His ears are the first part to react to temperature changes.</li>
+        <li>At very cold temps, he glows blue like a snowflake ❄️.</li>
+        <li>At warm temps, he shifts to sunset orange 🌅.</li>
+        <li>He was designed to help kids learn about temperature in a fun way!</li>
+      </ul>
+      <button class="btn close-btn" onclick="closeThankYou()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    function submitOrder() {
+      document.getElementById('orderOverlay').style.display = 'none';
+      document.getElementById('thankYou').style.display = 'flex';
+    }
+
+    function closeThankYou() {
+      document.getElementById('thankYou').style.display = 'none';
     }
   </script>
 </body>
