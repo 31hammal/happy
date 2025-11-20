@@ -50,20 +50,13 @@
   .warm{background:white;}
 
   .buy-panel select, input{
-    width:100%;padding:10px;border-radius:10px;border:1px solid:#ddd;font-size:1rem;
+    width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;font-size:1rem;
   }
   .buy-now{
     background:var(--accent);color:white;border:none;padding:14px;width:100%;
     border-radius:12px;font-size:1.15rem;cursor:pointer;margin-top:10px;
   }
   .buy-now:hover{background:var(--accent-2);}
-
-  .price{
-    font-size:1.4rem;
-    font-weight:600;
-    margin:10px 0;
-    color:var(--accent-2);
-  }
 
   .modal-backdrop{
     position:fixed;inset:0;display:none;background:rgba(0,0,0,0.45);
@@ -132,9 +125,7 @@
     </div>
 
     <aside class="card buy-panel">
-      <h2 style="margin-top:0">Buy ThermoBuddy</h2>
-      <p class="price">$19.99</p>
-
+      <h2 style="margin-top:0">Buy ThermoBuddy ($19.99)</h2>
       <label>Choose Style</label>
       <select id="styleSelect">
         <option>Classic Violet-Blue</option>
@@ -148,16 +139,6 @@
       <button id="buyNow" class="buy-now">Buy Now → Checkout</button>
     </aside>
   </div>
-
-  <!-- VIDEO SECTION ADDED BELOW -->
-  <div class="card" style="margin-top:1.5rem;">
-    <h2>Watch ThermoBuddy in Action!</h2>
-    <video controls style="width:100%;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
-      <source src="thermobuddy_video.mp4" type="video/mp4">
-      Your browser does not support the video tag.
-    </video>
-  </div>
-  <!-- END OF VIDEO SECTION -->
 
   <div class="card" style="margin-top:1.5rem;">
     <h2>STEAM Learning</h2>
@@ -175,6 +156,25 @@
       <li>Used in mood rings, baby spoons, and mugs</li>
       <li>Thermochromism = temperature-driven color change</li>
     </ul>
+  </div>
+
+  <div class="card" style="margin-top:1.5rem;">
+    <h2>ThermoBuddy in Action</h2>
+    <video width="100%" controls style="border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.15);">
+      <source src="thermobuddy_video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+
+  <!-- ⭐ NEW: Say Hi to ThermoBuddy Button -->
+  <div class="card" style="margin-top:1.5rem; text-align:center;">
+    <h2>Say Hi to ThermoBuddy</h2>
+    <button id="hiButton" class="buy-now" style="width:auto;padding:10px 20px;">
+      Say Hi 👋
+    </button>
+    <p id="hiMessage" style="margin-top:12px;font-size:1.2rem;color:var(--accent-2);display:none;">
+      Hi! I'm ThermoBuddy! Stay cool! ❄️💙
+    </p>
   </div>
 
 </main>
@@ -215,7 +215,6 @@
   </div>
 </div>
 
-<!-- Thank You Modal -->
 <div id="thankYouModal">
   <div id="thankYouBox">
     <h2>Thank You for Your Purchase!</h2>
@@ -228,20 +227,26 @@
 const buyNow = document.getElementById('buyNow');
 const modal = document.getElementById('modalBackdrop');
 const confirmBtn = document.getElementById('confirmBtn');
-const thankYou = document.getElementById('thankYouModal');
+const thankYouModal = document.getElementById('thankYouModal');
 const closeThankYou = document.getElementById('closeThankYou');
 
-buyNow.onclick = () => {
-  modal.style.display = 'flex';
-};
+buyNow.onclick = () => modal.style.display = "flex";
 
 confirmBtn.onclick = () => {
-  modal.style.display = 'none';
-  thankYou.style.display = 'flex';
+  modal.style.display = "none";
+  thankYouModal.style.display = "flex";
 };
 
 closeThankYou.onclick = () => {
-  thankYou.style.display = 'none';
+  thankYouModal.style.display = "none";
+};
+
+// ⭐ NEW Hi Button Script
+const hiButton = document.getElementById('hiButton');
+const hiMessage = document.getElementById('hiMessage');
+
+hiButton.onclick = () => {
+  hiMessage.style.display = "block";
 };
 </script>
 
