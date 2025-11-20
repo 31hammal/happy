@@ -42,13 +42,7 @@
     display: grid;
     grid-template-columns: 1fr 350px;
     gap: 20px;
-    align-items: start; /* align top so left column doesn't stretch right */
-  }
-
-  /* Scrollable left column */
-  .left-column {
-    max-height: 650px; /* adjust as needed */
-    overflow-y: auto;
+    align-items: start; /* align top */
   }
 
   .card{
@@ -120,8 +114,9 @@
 <main class="container">
 
   <div class="hero">
+
     <!-- LEFT COLUMN -->
-    <div class="left-column">
+    <div>
       <div class="card">
         <h2>What is ThermoBuddy?</h2>
         <p class="lead">
@@ -163,6 +158,7 @@
       <button id="buyNow" class="buy-now">Buy Now → Checkout</button>
       <button id="sayHiBtn" class="buy-now" style="margin-top:10px;">Say Hi to ThermoBuddy</button>
     </aside>
+
   </div>
 
   <!-- STEAM Card -->
