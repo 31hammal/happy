@@ -80,44 +80,13 @@
     background:white;padding:22px;width:min(420px,90%);
     border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,0.25);text-align:center;
   }
-
-  /* THERMOMETER STYLE */
-  .thermo-wrapper{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:40px;
-    margin-top:10px;
-  }
-  .thermo-display{
-    width:140px;
-    height:140px;
-    border-radius:50%;
-    box-shadow:0 0 25px rgba(0,0,0,0.15);
-    transition:background 0.4s ease;
-    border:4px solid #eee;
-  }
-  .thermo-slider{
-    -webkit-appearance:none;
-    width:40px;
-    height:220px;
-    writing-mode: bt-lr;
-    transform:rotate(-90deg);
-    border-radius:20px;
-  }
-  input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance:none;
-    width:28px;height:28px;border-radius:50%;
-    background:var(--accent);
-    border:2px solid white;
-  }
 </style>
 </head>
 
 <body>
 
 <header>
-  <img src="ChatGPT Image Nov 13, 2025, 03_08_05 PM.png" alt="ThermoBuddy Logo"
+  <img src="logo.png" alt="ThermoBuddy Logo"
        style="width:120px;height:auto;margin-bottom:10px;">
   <h1>ThermoBuddy – Color-Changing Desk Buddy</h1>
   <p>Created by Allison, Emily, and Ella</p>
@@ -134,7 +103,7 @@
         and <strong>white</strong> above it!
       </p>
 
-      <img src="ThermoBuddy Elephant Logo Design.png" alt="ThermoBuddy Elephant"
+      <img src="elephant.png" alt="ThermoBuddy Elephant"
            style="width:100%;border-radius:16px;margin-top:10px;
                   box-shadow:0 4px 16px rgba(0,0,0,0.15);">
 
@@ -153,12 +122,14 @@
         Fun Fact: Thermochromic pigments physically shift their structure when heated —
         that’s why they change color!
       </p>
+
+      <!-- Video Section -->
+      <video src="video.mp4" controls style="width:100%;border-radius:16px;margin-top:10px;box-shadow:0 4px 16px rgba(0,0,0,0.15);"></video>
+
     </div>
 
     <aside class="card buy-panel">
       <h2 style="margin-top:0">Buy ThermoBuddy</h2>
-      <p style="font-size:1.2rem;font-weight:bold;margin-bottom:8px;">Price: $19.99</p>
-
       <label>Choose Style</label>
       <select id="styleSelect">
         <option>Classic Violet-Blue</option>
@@ -170,6 +141,8 @@
       <input id="qty" type="number" min="1" value="1">
 
       <button id="buyNow" class="buy-now">Buy Now → Checkout</button>
+
+      <button id="sayHiBtn" class="buy-now" style="margin-top:10px;">Say Hi to ThermoBuddy</button>
     </aside>
   </div>
 
@@ -189,39 +162,6 @@
       <li>Used in mood rings, baby spoons, and mugs</li>
       <li>Thermochromism = temperature-driven color change</li>
     </ul>
-  </div>
-
-  <!-- VIDEO -->
-  <div class="card" style="margin-top:1.5rem;">
-    <h2>Watch ThermoBuddy in Action</h2>
-    <video src="thermobuddy_video.mp4" controls style="width:100%;border-radius:14px;margin-top:10px;"></video>
-  </div>
-
-  <!-- SAY HI BUTTON -->
-  <div class="card" style="margin-top:1.5rem; text-align:center;">
-    <h2>Say Hi to ThermoBuddy</h2>
-    <button id="hiButton" class="buy-now" style="width:auto;padding:10px 20px;">
-      Say Hi 👋
-    </button>
-    <p id="hiMessage" style="margin-top:12px;font-size:1.2rem;color:var(--accent-2);display:none;">
-      Hi! I'm ThermoBuddy! Stay cool! ❄️💙
-    </p>
-  </div>
-
-  <!-- ⭐ THERMOMETER SIMULATOR -->
-  <div class="card" style="margin-top:1.5rem;">
-    <h2>ThermoBuddy Temperature Simulator</h2>
-    <p class="lead">Slide the thermometer to change the temperature!</p>
-
-    <div class="thermo-wrapper">
-      <!-- Color-changing circle -->
-      <div id="thermoDisplay" class="thermo-display"
-        style="background:linear-gradient(135deg,#8a9cff,#c8d0ff);">
-      </div>
-
-      <!-- Thermometer slider -->
-      <input type="range" id="thermoSlider" min="0" max="100" value="0" class="thermo-slider">
-    </div>
   </div>
 
 </main>
@@ -277,45 +217,21 @@ const modal = document.getElementById('modalBackdrop');
 const confirmBtn = document.getElementById('confirmBtn');
 const thankYouModal = document.getElementById('thankYouModal');
 const closeThankYou = document.getElementById('closeThankYou');
+const sayHiBtn = document.getElementById('sayHiBtn');
 
-buyNow.onclick = () => {
-  modal.style.display = "flex";
-};
-
+buyNow.onclick = () => modal.style.display = 'flex';
 confirmBtn.onclick = () => {
-  modal.style.display = "none";
-  thankYouModal.style.display = "flex";
+  modal.style.display = 'none';
+  thankYouModal.style.display = 'flex';
 };
+closeThankYou.onclick = () => thankYouModal.style.display = 'none';
 
-closeThankYou.onclick = () => {
-  thankYouModal.style.display = "none";
-};
-
-/* SAY HI BUTTON */
-const hiButton = document.getElementById('hiButton');
-const hiMessage = document.getElementById('hiMessage');
-
-hiButton.onclick = () => {
-  hiMessage.style.display = "block";
-
+// Say Hi button with reset after 2 seconds
+sayHiBtn.onclick = () => {
+  sayHiBtn.innerText = 'Hi, ThermoBuddy!';
   setTimeout(() => {
-    hiMessage.style.display = "none";
+    sayHiBtn.innerText = 'Say Hi to ThermoBuddy';
   }, 2000);
-};
-
-/* ⭐ THERMOMETER SCRIPT */
-const thermoSlider = document.getElementById('thermoSlider');
-const thermoDisplay = document.getElementById('thermoDisplay');
-
-thermoSlider.oninput = () => {
-  const value = Number(thermoSlider.value);
-
-  // value 0 = cold (blue), 100 = hot (white)
-  if(value < 50){
-    thermoDisplay.style.background = "linear-gradient(135deg,#8a9cff,#c8d0ff)";
-  } else {
-    thermoDisplay.style.background = "white";
-  }
 };
 </script>
 
