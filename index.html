@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ThermoBuddy – Color-Changing Desk Buddy</title>
+
 <style>
   :root{
     --accent:#7a9eff;
@@ -13,12 +14,11 @@
     --text:#222;
     --muted:#666;
   }
-
   body{
     margin:0;
     font-family:Inter, system-ui, -apple-system, "Poppins", sans-serif;
-    background: linear-gradient(135deg,var(--bg1),var(--bg2));
-    color: var(--text);
+    background:linear-gradient(135deg,var(--bg1),var(--bg2));
+    color:var(--text);
   }
 
   header{
@@ -34,73 +34,66 @@
   header h1 { margin:0; font-size:2.5rem; }
   header p { margin-top:.4rem; font-size:1.1rem; }
 
-  .container { max-width:1050px; margin:1.5rem auto; padding:0 1rem; }
-  .hero { display:flex; flex-wrap:wrap; gap:20px; align-items:flex-start; }
+  .container{max-width:1050px;margin:1.5rem auto;padding:0 1rem;}
+  .hero{display:grid;grid-template-columns:1fr 350px;gap:20px;align-items:center;}
 
   .card{
     background:white;
     padding:1.5rem;
     border-radius:16px;
     box-shadow:0 8px 24px rgba(0,0,0,0.08);
-    flex:1 1 600px;
-    min-width:300px;
   }
+  .lead{font-size:1.2rem;line-height:1.6;color:var(--muted);}
 
-  .buy-panel { flex:1 1 300px; min-width:280px; }
-  .lead{font-size:1.2rem; line-height:1.6; color:var(--muted);}
-
-  .color-samples{display:flex; gap:20px; margin-top:1rem;}
+  .color-samples{display:flex;gap:20px;margin-top:1rem;}
   .sample{width:80px;height:80px;border-radius:12px;border:2px solid #eee;}
   .cool{background:linear-gradient(135deg,#8a9cff,#c8d0ff);}
   .warm{background:white;}
 
-  .buy-panel select, .buy-panel input{
+  .buy-panel select, input{
     width:100%;padding:10px;border-radius:10px;border:1px solid #ddd;font-size:1rem;
   }
-
   .buy-now{
     background:var(--accent);color:white;border:none;padding:14px;width:100%;
     border-radius:12px;font-size:1.15rem;cursor:pointer;margin-top:10px;
   }
   .buy-now:hover{background:var(--accent-2);}
 
-  video{
-    width:100%;
-    border-radius:16px;
-    box-shadow:0 4px 16px rgba(0,0,0,0.15);
-    margin-top:10px;
+  .modal-backdrop{
+    position:fixed;inset:0;display:none;background:rgba(0,0,0,0.45);
+    backdrop-filter:blur(4px);align-items:center;justify-content:center;z-index:999;
   }
-
-  #modalBackdrop, #thankYouModal{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.55);
-    backdrop-filter:blur(4px);
-    align-items:center;
-    justify-content:center;
-    z-index:9999;
-  }
-
-  .modal, #thankYouBox{
-    background:white;
-    padding:1.5rem;
-    border-radius:16px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.3);
-    width:min(720px,90%);
-    text-align:center;
+  .modal{
+    background:white;padding:1.5rem;width:min(720px,95%);
+    border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,0.3);
   }
 
   footer{
-    text-align:center;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));
-    color:white;
-    padding:1.5rem;
-    margin-top:2rem;
-    border-radius:12px;
+    text-align:center;background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    color:white;padding:1.5rem;margin-top:2rem;border-radius:12px;
+  }
+
+  #thankYouModal{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,0.55);
+    backdrop-filter:blur(4px);align-items:center;justify-content:center;z-index:9999;
+  }
+  #thankYouBox{
+    background:white;padding:22px;width:min(420px,90%);
+    border-radius:18px;box-shadow:0 8px 30px rgba(0,0,0,0.25);text-align:center;
+  }
+
+  /* Video fix */
+  video{
+    width:100%;
+    max-height:300px;
+    border-radius:16px;
+    box-shadow:0 4px 16px rgba(0,0,0,0.15);
+    object-fit:cover;
+    margin-top:10px;
   }
 </style>
 </head>
+
 <body>
 
 <header>
@@ -116,38 +109,49 @@
       <h2>What is ThermoBuddy?</h2>
       <p class="lead">
         ThermoBuddy is a joyful desk friend that changes color with temperature —
-        <strong>violet-blue</strong> under <strong>25°C (77°F)</strong> and <strong>white</strong> above it!
+        <strong>violet-blue</strong> under <strong>25°C (77°F)</strong>
+        and <strong>white</strong> above it!
       </p>
-      <img src="elephant.png" alt="ThermoBuddy Elephant">
+
+      <img src="elephant.png" alt="ThermoBuddy Elephant" style="width:100%;border-radius:16px;margin-top:10px;">
+
       <div class="color-samples">
         <div><div class="sample cool"></div><small>Cold (Violet-Blue)</small></div>
         <div><div class="sample warm"></div><small>Warm (White)</small></div>
       </div>
-      <p class="lead">Fun Fact: Thermochromic pigments shift their structure when heated!</p>
 
-      <!-- Video -->
+      <p style="margin-top:1rem;color:var(--muted);font-size:1rem;">
+        Fun Fact: Thermochromic pigments physically shift their structure when heated —
+        that’s why they change color!
+      </p>
+
+      <!-- Video Section -->
       <video src="video.mp4" controls></video>
+
     </div>
 
     <aside class="card buy-panel">
-      <h2>Buy ThermoBuddy</h2>
+      <h2 style="margin-top:0">Buy ThermoBuddy</h2>
       <label>Choose Style</label>
       <select id="styleSelect">
         <option>Classic Violet-Blue</option>
         <option>Snow-White Edition</option>
         <option>Galaxy Glow Mix</option>
       </select>
-      <label>Quantity</label>
+
+      <label style="margin-top:12px;">Quantity</label>
       <input id="qty" type="number" min="1" value="1">
+
       <button id="buyNow" class="buy-now">Buy Now → Checkout</button>
-      <button id="sayHiBtn" class="buy-now">Say Hi to ThermoBuddy</button>
+
+      <button id="sayHiBtn" class="buy-now" style="margin-top:10px;">Say Hi to ThermoBuddy</button>
     </aside>
   </div>
 
   <div class="card" style="margin-top:1.5rem;">
     <h2>STEAM Learning</h2>
     <p class="lead">Explore science, engineering, art, and heat-activated pigments!</p>
-    <ul>
+    <ul style="font-size:1.1rem;line-height:1.6;">
       <li>Graph the temperature where the color flips</li>
       <li>Test different 3D-printed thicknesses</li>
       <li>Experiment with pigment mixtures</li>
@@ -156,7 +160,7 @@
 
   <div class="card" style="margin-top:1.5rem;">
     <h2>Fun Facts</h2>
-    <ul>
+    <ul style="font-size:1.1rem;line-height:1.6;">
       <li>Used in mood rings, baby spoons, and mugs</li>
       <li>Thermochromism = temperature-driven color change</li>
     </ul>
@@ -167,29 +171,45 @@
 <div id="modalBackdrop" class="modal-backdrop">
   <div class="modal">
     <h2>Checkout</h2>
-    <label>First Name</label>
-    <input id="firstName" type="text">
-    <label>Last Name</label>
-    <input id="lastName" type="text">
-    <label>Email</label>
-    <input id="email" type="email">
-    <label>Address</label>
-    <input id="addr" type="text">
-    <label>Country</label>
-    <select id="country">
-      <option>United States</option>
-      <option>Canada</option>
-      <option>United Kingdom</option>
-    </select>
-    <button id="confirmBtn" class="buy-now">Submit Order</button>
+    <div style="display:flex;gap:10px;">
+      <div style="flex:1;">
+        <label>First Name</label>
+        <input id="firstName" type="text" placeholder="Allison">
+      </div>
+      <div style="flex:1;">
+        <label>Last Name</label>
+        <input id="lastName" type="text" placeholder="Smith">
+      </div>
+    </div>
+
+    <label style="margin-top:10px;">Email</label>
+    <input id="email" type="email" placeholder="you@example.com">
+
+    <div style="display:flex;gap:10px;margin-top:10px;">
+      <div style="flex:1;">
+        <label>Address</label>
+        <input id="addr" type="text" placeholder="123 Maker Lane">
+      </div>
+      <div style="flex:1;">
+        <label>Country</label>
+        <select id="country">
+          <option>United States</option>
+          <option>Canada</option>
+          <option>United Kingdom</option>
+        </select>
+      </div>
+    </div>
+
+    <button id="confirmBtn" class="buy-now" style="margin-top:16px;">Submit Order</button>
   </div>
 </div>
 
+<!-- Thank You Modal -->
 <div id="thankYouModal">
   <div id="thankYouBox">
     <h2>Thank You for Your Purchase!</h2>
     <p>Your ThermoBuddy is on its way 🎉</p>
-    <button id="closeThankYou" class="buy-now">Close</button>
+    <button id="closeThankYou" class="buy-now" style="margin-top:12px;">Close</button>
   </div>
 </div>
 
@@ -212,7 +232,7 @@ sayHiBtn.onclick = () => {
   sayHiBtn.innerText = 'Hi, ThermoBuddy!';
   setTimeout(() => {
     sayHiBtn.innerText = 'Say Hi to ThermoBuddy';
-  },2000);
+  }, 2000);
 };
 </script>
 
